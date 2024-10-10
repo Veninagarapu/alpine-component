@@ -1,0 +1,30 @@
+<div x-data="taskManager()" x-init="init()">
+    <input type="text" x-model="newTask" placeholder="Enter a task">
+    <button @click="addTask()">Add Task</button>
+    
+    <ul>
+        <template x-for="task in tasks" :key="task">
+            <li x-text="task"></li>
+        </template>
+    </ul>
+</div>
+
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('taskManager', () => ({
+            newTask: '',
+            tasks: [],
+
+            init() {
+                console.log('Component Initialized');
+            },
+
+            addTask() {
+                if (this.newTask !== '') {
+                    this.tasks.push(this.newTask);
+                    this.newTask = ''; // Clear input after adding
+                }
+            }
+        }));
+    });
+</script>
